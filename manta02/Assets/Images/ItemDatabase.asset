@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea1208cb4bfc946f7aa1d7b5348cb086, type: 3}
+  m_Name: ItemDatabase
+  m_EditorClassIdentifier: 
+  m_Images:
+  - Name: alarmImg
+    Width: 0
+    Quality: 100
+    TextureGUID: d0fa08bbd9b364b409bafa2a8a4cd4b0
+  - Name: extinguisherImg
+    Width: 0
+    Quality: 0
+    TextureGUID: ceeaffca205fc5245a36e7508f717eb3
+  - Name: gasImg
+    Width: 0
+    Quality: 85
+    TextureGUID: 5faab62f193d0d24b9bd4c72e1510d5c
+  - Name: multitabImg
+    Width: 0
+    Quality: 75
+    TextureGUID: a23fd1737395a5640995fcda8d8f87d2
+  - Name: sandImg
+    Width: 0
+    Quality: 100
+    TextureGUID: fec8bb2ee7d37f74d9a425a29045a9ef
+  m_RawData: 
+  m_IsRawDataDirty: 1
+  m_CliVersion: 1.2
