@@ -1,83 +1,87 @@
-using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using GoogleARCore;
-using GoogleARCoreInternal;
-using UnityEngine;
+//-----------------------------------------------------------------------
+// <copyright file="AugmentedImageVisualizer.cs" company="Google">
+//
+// Copyright 2018 Google Inc. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// </copyright>
+//-----------------------------------------------------------------------
 
-/// <summary>
-/// Uses 4 frame corner objects to visualize an AugmentedImage.
-/// </summary>
-public class FirePropSpawner : MonoBehaviour
+namespace GoogleARCore.Examples.AugmentedImage
 {
-    public GameObject extinguisherPrefab;
-    public GameObject alarmPrefab;
-    public GameObject gasPrefab;
-    public GameObject sandPrefab;
-    public GameObject multitabPrefab;
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.InteropServices;
+    using GoogleARCore;
+    using GoogleARCoreInternal;
+    using UnityEngine;
 
-    private List<AugmentedImage> currentDetectedAugementedImages = new List<AugmentedImage>();
-
-    public void Update()
+    /// <summary>
+    /// Uses 4 frame corner objects to visualize an AugmentedImage.
+    /// </summary>
+    public class AugmentedImageVisualizer : MonoBehaviour
     {
-        Session.GetTrackables<AugmentedImage>(currentDetectedAugementedImages, TrackableQueryFilter.New);
+        /// <summary>
+        /// The AugmentedImage to visualize.
+        /// </summary>
+        public AugmentedImage Image;
 
-        foreach (var image in currentDetectedAugementedImages)
+        /// <summary>
+        /// A model for the lower left corner of the frame to place when an image is detected.
+        /// </summary>
+        public GameObject FrameLowerLeft;
+
+        /// <summary>
+        /// A model for the lower right corner of the frame to place when an image is detected.
+        /// </summary>
+        public GameObject FrameLowerRight;
+
+        /// <summary>
+        /// A model for the upper left corner of the frame to place when an image is detected.
+        /// </summary>
+        public GameObject FrameUpperLeft;
+
+        /// <summary>
+        /// A model for the upper right corner of the frame to place when an image is detected.
+        /// </summary>
+        public GameObject FrameUpperRight;
+
+        /// <summary>
+        /// The Unity Update method.
+        /// </summary>
+        public void Update()
         {
-
-            //float targetExtenX = image.ExtentX / 2; //¿ìÃø/2
-            //float targetExtenZ = image.ExtentZ / 2; //ÁÂ°ª/2
-            
-            
-
-            
-
-            if (image.Name == "extinguisher")
+            if (Image == null || Image.TrackingState != TrackingState.Tracking)
             {
-                Instantiate(extinguisherPrefab, image.CenterPose.position, image.CenterPose.rotation);
+                FrameLowerLeft.SetActive(false);
+                FrameLowerRight.SetActive(false);
+                FrameUpperLeft.SetActive(false);
+                FrameUpperRight.SetActive(false);
+                return;
+            }
 
-                //extinguisherPrefab.transform.position = image.CenterPose.position;
-                //extinguisherPrefab.transform.rotation = image.CenterPose.rotation;
-                //extinguisherPrefab.transform.Rotate(0, 2, 0);
-                //Instantiate(extinguisherPrefab);
+            float halfWidth = Image.ExtentX / 2;
+            float halfHeight = Image.ExtentZ / 2;
+            FrameLowerLeft.transform.localPosition = (halfWidth * Vector3.left) + (halfHeight * Vector3.back);
+            FrameLowerRight.transform.localPosition = (halfWidth * Vector3.right) + (halfHeight * Vector3.back);
+            FrameUpperLeft.transform.localPosition = (halfWidth * Vector3.left) + (halfHeight * Vector3.forward);
+            FrameUpperRight.transform.localPosition = (halfWidth * Vector3.right) + (halfHeight * Vector3.forward);
 
-
-
-            }
-            else if (image.Name == "alarm")
-            {
-                //Instantiate(alarmPrefab, image.CenterPose.position, image.CenterPose.rotation);
-                alarmPrefab.transform.position = image.CenterPose.position;
-                alarmPrefab.transform.rotation = image.CenterPose.rotation;
-                alarmPrefab.transform.Rotate(0, 2, 0);
-                Instantiate(alarmPrefab);
-            }
-            else if (image.Name == "gas")
-            {
-                //Instantiate(gasPrefab, image.CenterPose.position, image.CenterPose.rotation);
-                gasPrefab.transform.position = image.CenterPose.position;
-                gasPrefab.transform.rotation = image.CenterPose.rotation;
-                gasPrefab.transform.Rotate(0, 2, 0);
-                Instantiate(gasPrefab);
-            }
-            else if (image.Name == "multitab")
-            {
-                //Instantiate(multitabPrefab, image.CenterPose.position, image.CenterPose.rotation);
-                multitabPrefab.transform.position = image.CenterPose.position;
-                multitabPrefab.transform.rotation = image.CenterPose.rotation;
-                multitabPrefab.transform.Rotate(0, 2, 0);
-                Instantiate(multitabPrefab);
-            }
-            else if (image.Name == "sand")
-            {
-                //Instantiate(sandPrefab, image.CenterPose.position, image.CenterPose.rotation);
-                sandPrefab.transform.position = image.CenterPose.position;
-                sandPrefab.transform.rotation = image.CenterPose.rotation;
-                sandPrefab.transform.Rotate(0, 2, 0);
-                Instantiate(sandPrefab);
-            }
-           
+            FrameLowerLeft.SetActive(true);
+            FrameLowerRight.SetActive(true);
+            FrameUpperLeft.SetActive(true);
+            FrameUpperRight.SetActive(true);
         }
-
     }
 }
