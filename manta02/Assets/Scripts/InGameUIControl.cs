@@ -14,9 +14,11 @@ public class InGameUIControl : MonoBehaviour
     private InGameUIControl(){}
     private static InGameUIControl instance;
 
-    public GameObject selectionPanel, itemSelectionPanel, dialogPanel, infoPanel, MissonPanel, slot1, slot2, 
-        extinguisher, sand, alarm, multitap, gasValve, towel, oliStove,
-        extinguisherMisson, sandMisson;
+    private MissionHandler missionHandler;
+
+    public GameObject selectionPanel, itemSelectionPanel, dialogPanel, infoPanel, MissonPanel, slot1, slot2,
+        extinguisher, sand, alarm, multitap, gasValve, towel, oliStove, waterBucketFull, WaterBucket,
+        extinguisherMisson;
    
     public Text dialog, consol, info, scoreText;
    
@@ -46,8 +48,10 @@ public class InGameUIControl : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
+        missionHandler = GameObject.Find("GameRoot").GetComponent<MissionHandler>();
         //게임이 시작되면
+        //missionHandler.StartMissionRoutine(new StartMission(), 360f);
         dialog.text = "어디선가 불이 났습니다! 원인을 찾아보세요.";
         dialogPanel.SetActive(true);
         //인벤토리 초기화
@@ -192,7 +196,6 @@ public class InGameUIControl : MonoBehaviour
 
         if (clickedItem.name == extinguisherMisson.name)
         {
-            MissionHandler missionHandler = GameObject.Find("GameRoot").GetComponent<MissionHandler>();
             missionHandler.StartMissionRoutine(new ExtinguisherMission(), 10f);
             
         }

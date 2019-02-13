@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Shooter : MonoBehaviour
-{   
+{
     //이 스크립트는 비활성상태여야 한다.
     //소화기 뿌리기, 모래 뿌리기를 위한 스크립트. 소화기, 모래 아이템이미지 게임오브젝트에 붙인다.
-    
-    public enum Usage //아이템을 사용하고 있는 상태인가?
+
+    //Shooter.eable은 사용하기 버튼을 클릭한 시점에서 true고 Usage는 소화기를 실제로 마우스클릭으로 사용했을때 Using이 됨
+    [HideInInspector] public enum Usage //아이템을 사용하고 있는 상태인가?
     {
         IDLE,
         USING,
@@ -49,6 +50,8 @@ public class Shooter : MonoBehaviour
             {
                 Debug.Log("불의 이름:" + hit.collider.name);
                 //왜 hit.collider.gameObject.GetComponent<ParticleSystem>().colorOverLifetime.enable = true 처럼 바로 접근하면 안되고 차근차근 접근하면 되는거지?
+                //물을 쓰고, 기름에 의한 화재일 경우 끄지 못한다.
+                if(this.effect.name == "water" && hit.collider.gameObject.transform.parent.gameObject.name == "oilStove") { Debug.Log("불을 끄지 못합니다"); yield break; }
                 ParticleSystem ps =  hit.collider.gameObject.GetComponent<ParticleSystem>();
                 Fire fire = hit.collider.gameObject.GetComponent<Fire>();
                 fire.enabled = true;
@@ -82,7 +85,6 @@ public class Shooter : MonoBehaviour
             InGameUIControl uiCtrl = InGameUIControl.GetInstance();
             uiCtrl.DiscardSlot();  //다쓰면 슬롯을 비움
             state = Usage.IDLE;
-            StopCoroutine(JetRoutine(effect)); //멈춰줘야 하나?
             
 
         }

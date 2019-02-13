@@ -1,0 +1,115 @@
+OPRP 
+
+LoadObject djBucket1.obj
+
+EditSurface blinn7SG
+SurfaceBlendMode Normal
+SurfaceBlendOperation Add
+SurfaceDiffuseMap BucketColor1.tga
+SurfaceNormalMap BucketColor1nrml.tga
+SurfaceSpecularMap BucketColor1Spec.tga
+SurfaceDetailMap 
+SurfaceShaderSpec 
+SurfaceShaderEnabled 1
+SurfaceFlags 
+SurfaceTextureFlags 
+SurfaceSpecular 11.43
+SurfaceShinyness 128
+SurfaceDetailAmount 0
+SurfaceDetailMapScale 1
+SurfaceTextureAnimLayers 1
+SurfaceTextureScale 0 1.000000 1.000000
+SurfaceTextureOffset 0 0.000000 0.000000
+SurfaceTextureAnim 0 0.000000 0.000000
+SurfaceTextureStep 0 0.000000 0.000000
+SurfaceWaveParams 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+SurfaceNormalMapScale 1
+SurfaceDisplacement 0
+SurfaceNormalOffset 0
+SurfaceNormalMapIntensity -4.5
+SurfaceLuminosity 0
+SurfaceDiffuse 1
+SurfaceTransparency 0
+SurfaceTranslucency 0
+SurfaceColor 255 255 255
+SurfaceDrawOrder 0
+SurfaceNoDebugOverride 0
+SurfaceAlphaTestThreshold 127
+
+EditSurface blinn8SG
+SurfaceBlendMode Normal
+SurfaceBlendOperation Add
+SurfaceDiffuseMap 
+SurfaceNormalMap 
+SurfaceSpecularMap 
+SurfaceDetailMap 
+SurfaceShaderSpec 
+SurfaceShaderEnabled 1
+SurfaceFlags 
+SurfaceTextureFlags 
+SurfaceSpecular 0
+SurfaceShinyness 128
+SurfaceDetailAmount 0
+SurfaceDetailMapScale 1
+SurfaceTextureAnimLayers 1
+SurfaceTextureScale 0 1.000000 1.000000
+SurfaceTextureOffset 0 0.000000 0.000000
+SurfaceTextureAnim 0 0.000000 0.000000
+SurfaceTextureStep 0 0.000000 0.000000
+SurfaceWaveParams 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+SurfaceNormalMapScale 1
+SurfaceDisplacement 0
+SurfaceNormalOffset 0
+SurfaceNormalMapIntensity 1
+SurfaceLuminosity 0
+SurfaceDiffuse 1
+SurfaceTransparency 0
+SurfaceTranslucency 0
+SurfaceColor 0 0 0
+SurfaceDrawOrder 0
+SurfaceNoDebugOverride 0
+SurfaceAlphaTestThreshold 127
+
+EditSurface Default
+SurfaceBlendMode Normal
+SurfaceBlendOperation Add
+SurfaceDiffuseMap 
+SurfaceNormalMap 
+SurfaceSpecularMap 
+SurfaceDetailMap 
+SurfaceShaderSpec 
+SurfaceShaderEnabled 1
+SurfaceFlags 
+SurfaceTextureFlags 
+SurfaceSpecular 0
+SurfaceShinyness 128
+SurfaceDetailAmount 0
+SurfaceDetailMapScale 1
+SurfaceTextureAnimLayers 1
+SurfaceTextureScale 0 1.000000 1.000000
+SurfaceTextureOffset 0 0.000000 0.000000
+SurfaceTextureAnim 0 0.000000 0.000000
+SurfaceTextureStep 0 0.000000 0.000000
+SurfaceWaveParams 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+SurfaceNormalMapScale 1
+SurfaceDisplacement 0
+SurfaceNormalOffset 0
+SurfaceNormalMapIntensity 1
+SurfaceLuminosity 0
+SurfaceDiffuse 1
+SurfaceTransparency 0
+SurfaceTranslucency 0
+SurfaceColor 201 201 201
+SurfaceDrawOrder 0
+SurfaceNoDebugOverride 0
+SurfaceAlphaTestThreshold 127
+CastShadow 1
+ReceiveShadows 1
+VisibleInReflections 1
+EnableLightMap 0
+CastLightMapShadow 0
+
+ClearRoadConnectors 1
+
+ControllerType Scripted
+ControllerSetting base 

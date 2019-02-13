@@ -34,12 +34,32 @@ public class StartMission : Mission
 {
 
     public Shooter shooter;
+    int ran = Random.Range(0, 2);
+    GameObject gasValve, multiTap, oilStove, fire;
+    GameObject[] startItems;
+
+
 
     public StartMission()
     {
         missionName = "스타트미션";
         score = 200;
+        missionDialog.Add("성공이에요!");
+        missionDialog.Add("실패에요!");
         missionDialog.Add("어디선가 불이 났습니다! 화재원을 찾아보세요!");
+        dialog.text = missionDialog[2];
+        dialogPanel.SetActive(true);
+        //가스밸브, 멀티탭, 오일스토브 인스턴스를 가져온다.
+        gasValve = GameObject.Find(uiControl.gasValve.name);
+        multiTap = GameObject.Find(uiControl.multitap.name);
+        oilStove = GameObject.Find(uiControl.oliStove.name);
+        startItems = new GameObject[] { gasValve, multiTap, oilStove };
+        //랜덤 오브젝트의 자식인 불 오브젝트를 가져와서 활성화시킨다.(처음에 비활성화 상태임)
+        fire = startItems[ran].transform.Find("fire").gameObject;
+        fire.SetActive(true);
+
+        
+
 
     }    
 
@@ -50,7 +70,62 @@ public class StartMission : Mission
 
     public override IEnumerator MissionRoutine(float time)
     {
-        throw new System.NotImplementedException();
+
+        float timeSnapshot;
+        timeSnapshot = gm.time;
+
+        while (isMissionOn)
+        {
+
+            Debug.Log("미션시작");
+            Debug.Log("미션이 활성화 됬나?" + isMissionOn);
+
+            if (gm.time > timeSnapshot + time)
+            {
+
+                Debug.Log("타임아웃");
+                dialog.text = missionDialog[1];
+                dialogPanel.SetActive(true);
+                isMissonSucced = false;
+                isMissionOn = false;
+            }
+
+            yield return null;
+
+            if (!this.shooter)
+            {   
+                //클릭된 아이템이 슈터를 가지고 있을 경우
+                if (uiControl.clickedItem.GetComponent<Shooter>())
+                {   
+                    //슈터의 레퍼런스를 저장한다.
+                    this.shooter = GameObject.Find(uiControl.clickedItem.name).GetComponent<Shooter>();
+                }
+
+                //만약 슈터가 붙은 게임오브젝트가 ~~면 식으로 상황을 전개해나간다.
+            }
+
+            //랜덤오브젝트에 따라, 또 사용하는 소화오브젝트에 따라 상황이 달라진다. 정리를 더 해보자.
+
+            //랜덤 오브젝트가 가스 밸브이고 불이 꺼지면
+            if (startItems[ran] == gasValve && fire.GetComponent<Fire>().isExtinguished)
+            {
+                missionDialog.Add("잘했어요! 이제 가스밸브를 잠가주세요"); dialog.text = missionDialog[3]; dialogPanel.SetActive(true);
+                //가스밸브가 잠기면 성공
+
+            }
+            //랜덤 오브젝트가 멀티탭이고 불이 꺼지면
+            else if (startItems[ran] == multiTap && fire.GetComponent<Fire>().isExtinguished)
+            {
+                missionDialog.Add("물을 사용하면 감전됩니다!"); dialog.text = missionDialog[3]; dialogPanel.SetActive(true);
+            }
+            //랜덤 오브젝트가 오일스토브고 물을 사용하면
+            else if (startItems[ran] == oilStove && this.shooter.state == Shooter.Usage.USING)
+            {
+                missionDialog.Add("물을 사용하면 불이 더 커집니다!"); dialog.text = missionDialog[3]; dialogPanel.SetActive(true);
+            }
+
+            //성공 실패 로직(점수획득, ismissionOn을 false로 만들기)
+        }
     }
 }
 
@@ -88,7 +163,7 @@ public class ExtinguisherMission : Mission
 
 
 
-    //코루틴으로 안쓰고 while로 하면 무한루프 걸려버림
+    //코루틴으로 안쓰고 while로 하면 무한루프 걸려버림.. 코루틴으로써도 넘 자주 실행되는데
     public override IEnumerator MissionRoutine(float time) //인자로 미션제한시간을 받는다.
     {
 
@@ -109,20 +184,17 @@ public class ExtinguisherMission : Mission
                 isMissonSucced = false;
                 isMissionOn = false;
             }
-
+            //사용자가 소화아이템을 사용하는지 프레임마다 체크
             yield return null;
 
-            //사용자가 소화기나 모래를 사용하기를 계속 기다린다. 
             if (!this.shooter)
             {
-                // 사용하면 슈터를 가져온다.
-                if (uiControl.clickedItem.name == uiControl.extinguisher.name)
+               
+                //클릭된 아이템이 슈터를 가지고 있을 경우
+                if (uiControl.clickedItem.GetComponent<Shooter>())
                 {
-                    this.shooter = GameObject.Find(uiControl.extinguisher.name).GetComponent<Shooter>();
-                }
-                else if (uiControl.clickedItem.name == uiControl.sand.name)
-                {
-                    this.shooter = GameObject.Find(uiControl.sand.name).GetComponent<Shooter>();
+                    //슈터의 레퍼런스를 저장한다.
+                    this.shooter = GameObject.Find(uiControl.clickedItem.name).GetComponent<Shooter>();
                 }
                 continue; //슈터에 객체가 할당이 안되면 건너뛴다. 
             }
