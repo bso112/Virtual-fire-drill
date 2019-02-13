@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 955133765552044694}
   - component: {fileID: 4618269987908774158}
   - component: {fileID: 6730667896681136827}
-  - component: {fileID: 4621583113441802826}
+  - component: {fileID: 1009196623816585836}
   m_Layer: 0
   m_Name: sand
   m_TagString: item
@@ -60,7 +60,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultImg: {fileID: 21300000, guid: fec8bb2ee7d37f74d9a425a29045a9ef, type: 3}
---- !u!114 &4621583113441802826
+  itemType: 0
+--- !u!114 &1009196623816585836
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,7 +73,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e7e7749de2c264e8dc0ed7f20a9ad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect: {fileID: 0}
+  state: 0
+  effect: {fileID: 8109415781842523996, guid: 5aff3259531cc0644b67f80e3d71b43b, type: 3}
+  limitJetCount: 15
+  extinguishedCount: 0
 --- !u!1 &7026435907909943580
 GameObject:
   m_ObjectHideFlags: 0

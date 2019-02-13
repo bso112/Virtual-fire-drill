@@ -9,20 +9,24 @@ public class InGameUIControl : MonoBehaviour
 {
 
     //인게임 UI를 총괄하는 스크립트
+    //패널은 비활성화, 그 자식들은 활성화되있어야함.
 
     private InGameUIControl(){}
     private static InGameUIControl instance;
 
-    public GameObject selectionPanel, itemSelectionPanel, dialogPanel, infoPanel, slot1, slot2, 
-        extinguisher, sand, alarm, multitap, gasnozzle, towel;
-   
-    public Text dialog, consol, info;
-    public Sprite extinguisherImg, sandImg, alarmImg, multitapImg, towelImg;
-    bool isMissonEnd, isGameEnd;
+    private MissionHandler missionHandler;
 
-    [HideInInspector] public GameObject clickedItem;
+    public GameObject selectionPanel, itemSelectionPanel, dialogPanel, infoPanel, MissonPanel, slot1, slot2,
+        extinguisher, sand, alarm, multitap, gasValve, towel, oliStove, waterBucketFull, WaterBucket,
+        extinguisherMisson;
+   
+    public Text dialog, consol, info, scoreText;
+   
+
+    [HideInInspector] public GameObject clickedItem; //아이템일 수도, 슬롯일 수도 있다.
 
     List<Slot> slots;
+
 
 
     GraphicRaycaster m_Raycaster;
@@ -44,15 +48,17 @@ public class InGameUIControl : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
+        missionHandler = GameObject.Find("GameRoot").GetComponent<MissionHandler>();
         //게임이 시작되면
+        //missionHandler.StartMissionRoutine(new StartMission(), 360f);
         dialog.text = "어디선가 불이 났습니다! 원인을 찾아보세요.";
         dialogPanel.SetActive(true);
-        isMissonEnd = isGameEnd = false;
+        //인벤토리 초기화
         slots = new List<Slot>();
         slots.Add(this.slot1.GetComponent<Slot>());
         slots.Add(this.slot2.GetComponent<Slot>());
-
+        //UI레이캐스트 초기화
         //Fetch the Raycaster from the GameObject (the Canvas)
         m_Raycaster = GetComponent<GraphicRaycaster>();
         //Fetch the Event System from the Scene
@@ -60,16 +66,26 @@ public class InGameUIControl : MonoBehaviour
 
     }
 
+    //터치 Touch tempTouches;
     // Update is called once per frame
     void Update()
     {   
         //게임오브젝트에 광선을 쏴서 식별한다.(매 프레임마다 마우스클릭이 있는지 검사한다)
-        if (!Input.GetMouseButtonDown(0))
-        { return; }
+        if (!Input.GetMouseButtonDown(0)) { return; }
+        //터치 if(Input.touchCount<=0) { return; }
         //이 밑부터는 마우스 클릭했을때 한번만 실행한다.
+       
+        // 터치 for (int i = 0; i < Input.touchCount; i++)
+        //{
+        //    tempTouches = Input.GetTouch(0);
+        //}
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //메인카메라 태그 설정해야 nullponit exception 안난다.
+        //터치 Ray touchRay = Camera.main.ScreenPointToRay(tempTouches.position);
+
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
+        //터치 if(Physics.Raycast(touchRay, out hit))
         {   
             //인스펙터에서 각 아이템과 아이템이미지에 콜라이더가 있는지, 태그가 잘 되있는지, 이름이 잘 되있는지 확인!
 
@@ -81,7 +97,7 @@ public class InGameUIControl : MonoBehaviour
                 clickedItem = hit.collider.gameObject; //클릭된 아이템을 전역변수에 넣어준다.
 
                 //클릭된 게임 오브젝트트를 검사, 아이템의 정보를 인포패널에 적어둠
-
+                //인스턴시에이트를 AR코어가 자동적으로 해주기 때문에 게임오브젝트 형식으로 비교할 수 없음. 어쩔 수 없이 이름으로 비교(프리팹과 인스턴스의 차이)
                 if(clickedItem.name == extinguisher.name)
                 {
                     info.text = "소화기다.";
@@ -98,39 +114,63 @@ public class InGameUIControl : MonoBehaviour
                 {
                     info.text = "멀티탭이다";
                 }
+                else if(clickedItem.name == gasValve.name)
+                {
+                    info.text = "가스밸브다";
+                }
+                else if(clickedItem.name == oliStove.name)
+                {
+                    info.text = "오일스토브다.";
+                }
+                else if(clickedItem.name == towel.name)
+                {
+                    info.text = "수건이다.";
+                }
                 
             }
-           
-            //클릭된 게임오브젝트의 태그가 mission이거나, 미션이 끝났거나, 게임이 끝났으면(아직 구현 안함)
-            if(hit.collider.tag == "mission" || isMissonEnd || isGameEnd)
+            //미션태그를 가진 오브젝트면
+            if(hit.collider.tag == "mission")
             {
-                Debug.Log("ActiveDialogPanel");
-                dialogPanel.SetActive(true);
+                Debug.Log("ActivateMissonPanel");
+                clickedItem = hit.collider.gameObject;
+                MissonPanel.SetActive(true);
+               
+                
+                                
+
             }
+            
         }
 
+        
         //Set up the new Pointer Event
         m_PointerEventData = new PointerEventData(m_EventSystem);
         //Set the Pointer Event Position to that of the mouse position
+       // m_PointerEventData.position = Input.mousePosition;
         m_PointerEventData.position = Input.mousePosition;
         List<RaycastResult> results = new List<RaycastResult>();
         m_Raycaster.Raycast(m_PointerEventData, results);
         foreach (RaycastResult result in results)
-        {
-            if (result.gameObject.tag == "slot" && result.gameObject.GetComponent<Image>().sprite != null) //클릭된 UI가 슬롯이면
+        {   
+            //클릭된 UI가 슬롯이면
+            if (result.gameObject.tag == "slot" && result.gameObject.GetComponent<Image>().sprite != null) 
             {
                 Debug.Log("ActiveitemSelectioPanel");
                 itemSelectionPanel.SetActive(true); //아니면 아이템셀렉션패널을 연다
                 clickedItem = result.gameObject; //클릭된 UI를 전역변수로 넘겨준다.
                 
                 //클릭된 슬롯의 이미지를 검사해 케이스마다 아이템 정보창의 컨텐츠를 셋팅한다.
-                if (result.gameObject.GetComponent<Image>().sprite == extinguisherImg)
+                if (result.gameObject.GetComponent<Image>().sprite == GetItemImg(extinguisher))
                 {
                     info.text = "소화기다.";
                 }
-                else if (result.gameObject.GetComponent<Image>().sprite == sandImg)
+                else if (result.gameObject.GetComponent<Image>().sprite == GetItemImg(sand))
                 {
                     info.text = "모래다.";
+                }
+                else if (result.gameObject.GetComponent<Image>().sprite == GetItemImg(towel))
+                {
+                    info.text = "수건이다.";
                 }
             }
         }
@@ -148,6 +188,28 @@ public class InGameUIControl : MonoBehaviour
         Debug.Log("ActiveInfoPanel");
         infoPanel.SetActive(true);
         
+    }
+
+    public void MissonStart()
+    {
+        dialogPanel.SetActive(true);
+
+        if (clickedItem.name == extinguisherMisson.name)
+        {
+            missionHandler.StartMissionRoutine(new ExtinguisherMission(), 10f);
+            
+        }
+
+       
+        
+    }
+
+    
+
+    public void MissionEx(Mission mission)
+    {
+        mission.isMissionOn = true;
+        mission.MissionEvent(10);  //시간 설정하는 세터메소드 만들기
     }
     
 
@@ -177,6 +239,8 @@ public class InGameUIControl : MonoBehaviour
 
     Sprite GetItemImg(GameObject item)
     {
+        if (item.GetComponent<Item>().defaultImg == null) Debug.Log("아이템 이미지가 없습니다");
+
         return item.GetComponent<Item>().defaultImg;
     }
 
@@ -189,55 +253,71 @@ public class InGameUIControl : MonoBehaviour
             clickedItem.GetComponent<Image>().sprite = null;
         }
     }
+        
 
+    //아이템 사용버튼을 누르면 실행
     public void UseItem()
     {
         //아이템 타입이 Misc이면 
-        if (clickedItem.GetComponent<Item>().itemType == Item.Type.Misc) { dialog.text = "사용할 수 없는 아이템입니다"; dialogPanel.SetActive(true); return; } 
-        Debug.Log("사용하는 아이템:"+clickedItem.name);
+        Debug.Log("사용하는 아이템:" + clickedItem.name);
+        if (clickedItem.GetComponent<Item>() != null && clickedItem.GetComponent<Item>().itemType == Item.Type.Misc) { dialog.text = "사용할 수 없는 아이템입니다"; dialogPanel.SetActive(true); return; } 
+        
         //아이템을 습득하지 않고 바로 사용할 경우
         if (clickedItem != null)
         {
             if (clickedItem.name == extinguisher.name)
             {
                 Debug.Log("소화기를 사용합니다");
-                GameObject extinguisher = GameObject.Find("extinguisher");
+                GameObject extinguisher = GameObject.Find(this.extinguisher.name);
                 extinguisher.GetComponent<Shooter>().ActivateShooter();
 
             }
             if (clickedItem.name == alarm.name)
             {
                 Debug.Log("알람이 울립니다");
-                GameObject alarm = GameObject.Find("alarm");
+                GameObject alarm = GameObject.Find(this.alarm.name);
                 alarm.GetComponent<AudioSource>().Play();
             }
             if (clickedItem.name == sand.name)
             {
-                GameObject sand = GameObject.Find("sand");
+                Debug.Log("모래를 사용합니다");
+                GameObject sand = GameObject.Find(this.sand.name);
                 sand.GetComponent<Shooter>().ActivateShooter();
             }
-            
+            if (clickedItem.name == towel.name)
+            {
+                Debug.Log("타올을 사용합니다.");
+                Debug.Log("아직 구현이 안되었습니다.");
+            }
             
         }
         //아이템을 습득하고나서 사용할 경우
         if (clickedItem != null && clickedItem.GetComponent<Image>() != null && clickedItem.GetComponent<Image>().sprite != null)
         {
             Debug.Log("슬롯 이미지 이름:" + clickedItem.GetComponent<Image>().sprite.name);
-            if (clickedItem.GetComponent<Image>().sprite == extinguisherImg)
+            //슬롯에 있는 이미지가 (아이템이름)이미지면
+            if (clickedItem.GetComponent<Image>().sprite == GetItemImg(extinguisher))
             {
                 Debug.Log("소화기를 사용합니다");
                 //Shooter shooter = extinguisher.GetComponent<Shooter>(); 프리펩 자체에 접근했다. 게임상의 프리펩 인스턴스와는 다르기 때문에 실행이 안된다. 실행하려면 프리펩 인스턴스에 접근해야한다.
-                GameObject extinguisher = GameObject.Find("extinguisher"); //이름으로 하지말까..하지만 방법이..??
+                GameObject extinguisher = GameObject.Find(this.extinguisher.name); 
                 extinguisher.GetComponent<Shooter>().ActivateShooter();
             }
-            if(clickedItem.GetComponent<Image>().sprite == alarmImg)
+            if (clickedItem.GetComponent<Image>().sprite == GetItemImg(alarm)) 
             {
                 Debug.Log("알람이 울립니다");
-                GameObject alarm = GameObject.Find("alarm"); 
+                GameObject alarm = GameObject.Find(this.alarm.name); 
                 alarm.GetComponent<AudioSource>().Play();
             }
-            if(clickedItem.GetComponent<Image>().sprite == sandImg)
+            if(clickedItem.GetComponent<Image>().sprite == GetItemImg(sand))
             {
+                GameObject sand = GameObject.Find(this.sand.name);
+                sand.GetComponent<Shooter>().ActivateShooter();
+            }
+            if(clickedItem.GetComponent<Image>().sprite == GetItemImg(towel))
+            {
+                //towel이라는 이름은 여러 오브젝트 인스턴스가 가지고있다. 따라서 겟콤포넌트 할때 주의(모델 임포트할때 자식이 딸려오는 모델임)
+                GameObject towel = GameObject.Find(this.towel.name);
 
             }
         }
