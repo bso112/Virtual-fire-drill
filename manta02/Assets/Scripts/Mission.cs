@@ -19,31 +19,33 @@ public abstract class Mission
 
     [HideInInspector] public static bool isMissionOn, isMissonSucced = false;
 
-    float timeSnapshot;
+    public float timeSnapshot;
 
     public Mission()
     {
-
+        Debug.Log("미션생성자 실행");
         timeSnapshot = gm.min * 60 + gm.second;
     }
-
-
-  
-
     public abstract void MissionEvent();
 
-    public abstract IEnumerator MissionRoutine(float time);
-
-
-    public static bool GetIsMissionOn()
-    {
-        return isMissionOn;
-    }
     //성공로직 마지막에 실행되어야한다.
     public void ScoreCheack()
     {
         Debug.Log("스코어체크");
         if (isMissonSucced) { Debug.Log("점수" + score); score += int.Parse(scoreText.text); scoreText.text = score.ToString(); }
+    }
+}
+
+public class TestMission : Mission
+{
+    public TestMission()
+    {
+        missionDialog.Add("(테스트)성공입니당~");
+        missionDialog.Add("(테스트)실패입니당~");
+    }
+    public override void MissionEvent()
+    {
+        if (isMissionOn) Debug.Log("테스트 미션");
     }
 }
 
@@ -91,7 +93,7 @@ public class StartMission : Mission
 
     //미션이 언제 실행되는지 업데이트에서 조건을 확인하지 않고, 조건을 하드코딩하거나 버튼 클릭등의 이벤트로 구체적으로 제공한다.
     public override void MissionEvent()
-    {
+    {   
         //매 클릭마다 실행
         if (!Input.GetMouseButtonDown(0)) { return; }
         //isMissionOn이 true면
@@ -149,14 +151,7 @@ public class StartMission : Mission
         }
     }
 
-    public override IEnumerator MissionRoutine(float time)
-    {
-        throw new System.NotImplementedException();
-    }
 }
-
-
-
 
 public class ExtinguisherMission : Mission
 {
@@ -248,84 +243,6 @@ public class ExtinguisherMission : Mission
         }
     }
 
-
-
-
-
-    //코루틴으로 안쓰고 while로 하면 무한루프 걸려버림.. 코루틴으로써도 넘 자주 실행되는데
-    public override IEnumerator MissionRoutine(float time) //인자로 미션제한시간을 받는다.
-    {
-
-        float timeSnapshot;
-        timeSnapshot = gm.second;
-        while (isMissionOn)
-        {
-
-            Debug.Log("미션시작");
-            Debug.Log("미션이 활성화 됬나?" + isMissionOn);
-
-            if (gm.second > timeSnapshot + time)
-            {
-
-                Debug.Log("타임아웃");
-                dialog.text = missionDialog[1];
-                dialogPanel.SetActive(true);
-                isMissonSucced = false;
-                isMissionOn = false;
-            }
-            //사용자가 소화아이템을 사용하는지 프레임마다 체크
-            yield return null;
-
-            if (uiControl.clickedItem && !shooter)
-            {
-
-                //클릭된 아이템이 슈터를 가지고 있을 경우
-                if (uiControl.clickedItem.GetComponent<Shooter>())
-                {
-                    //슈터의 레퍼런스를 저장한다.
-                    this.shooter = GameObject.Find(uiControl.clickedItem.name).GetComponent<Shooter>();
-                }
-                continue; //슈터에 객체가 할당이 안되면 건너뛴다. 
-            }
-
-            // 슈터를 사용해서 미션을 진행한다.
-
-            Debug.Log("끈 불의 수:" + shooter.extinguishedCount);
-
-            //setActive 다이어로그가 한번만 실행되게 함.
-            if (shooter.extinguishedCount != 5 || shooter.extinguishedCount != 10)
-            {
-                isDialogActivated = false;
-            }
-
-            if (shooter.extinguishedCount == 5)
-            {
-                if (!isDialogActivated)
-                {
-                    Debug.Log("다섯개의 불을 끔");
-                    dialog.text = missionDialog[3];
-                    dialogPanel.SetActive(true);
-                    isDialogActivated = true;
-                }
-            }
-            if (shooter.extinguishedCount == 10)
-            {
-                if (!isDialogActivated)
-                {
-                    Debug.Log("열개의 불을 끔");
-                    dialog.text = missionDialog[0];
-                    dialogPanel.SetActive(true);
-                    isMissonSucced = true;
-                    isMissionOn = false;
-                    isDialogActivated = true;
-                    ScoreCheack();
-
-                }
-            }
-
-        }
-
-    }
 
 
 }

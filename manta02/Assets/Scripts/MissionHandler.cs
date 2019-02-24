@@ -11,14 +11,6 @@ public class MissionHandler : MonoBehaviour
         mission.MissionEvent();
         
     }
-
-
     
-    public void StartMissionRoutine(Mission mission, float timeLimit)
-    {
-        Mission.isMissionOn = true;
-        StartCoroutine(mission.MissionRoutine(timeLimit));
-    }
-
 
 }

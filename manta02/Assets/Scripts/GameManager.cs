@@ -20,8 +20,7 @@ public class GameManager : MonoBehaviour
     public Text score;
     public GameObject hp;
     public Mission mission;
-    private NoFactorDel timeOutDel;
-    private MissionDel setMissionDel;
+    private bool[] flags = new bool[10]; // 같은 조건(Mission.isMissionOn = true)에서 각 미션을 한번만 실행하기 위한 일회용 플래그
 
 
 
@@ -41,76 +40,55 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //게임 시작과 동시에 첫 미션 스타트
-       
-        mission = new StartMission(); //미션의 생성자에서 타임스냅샷 찍음
-        StartCoroutine("update");
-        timeOutDel = new NoFactorDel(TimeOut);
-        setMissionDel = new MissionDel(SetMission);
+        Mission.isMissionOn = true;    
         for (int i = 0; i < flags.Length; i++)
         {
             flags[i] = true;
         }
 
+
     }
 
 
-
-    float timeSnapshot = 0; 
-
-    IEnumerator update()
+    float timelimit = 0;
+    private void Update()
     {
-        while (true)
+        Debug.Log("게임매니저의 update 실행");
+        
+
+        second += Time.deltaTime;
+        time += Time.deltaTime;
+        timer.text = string.Format("{0:D2} : {1:D2}", min, (int)second);
+        if (second >= 60)
         {
-
-            second += Time.deltaTime;
-            time += Time.deltaTime;
-            timer.text = string.Format("{0:D2} : {1:D2}", min, (int)second);
-            if (second >= 60)
-            {
-                min += 1;
-                second = 0;
-            }
-
-            
-            
-            Mission.isMissionOn = true; //프레임마다 실행
-            mission.MissionEvent(); //마우스를 누를 때마다 실행 
-            MissionTime(9f, ref flags[0]); //한번만 실행
-
-            // 메모)델리게이트 넘나 복잡 + 한 미션객체에 여러 미션을 넣으면 꼬여버린다.
-
-            if (second > 10)
-            {
-                RunOnlyOneTime(setMissionDel, new ExtinguisherMission(), ref flags[1]);
-                MissionTime(9f, ref flags[1]);
-                
-            }
-           
-            yield return null;
-
+            min += 1;
+            second = 0;
         }
         
-    }
-
-    void SetMission(Mission mission)
-    {
-        Mission.isMissionOn = true;
-        this.mission = mission;
-    }
-    
-
-    void MissionTime(float limit, ref bool flag)
-    {
-        if (second > timeSnapshot + limit)
+        if (time > 6f)
         {
-            RunOnlyOneTime(timeOutDel, ref flag);
+            if (flags[2]) { mission = new TestMission(); flags[2] = false; } //한번만 실행 if (flags[i]) { [실행할 내용] flags[i] = false; } 이걸 메소드롤 만들어보려다가 실패. 왜냐면 그 메소드 또한 한번만 실행되어야하기 때문임.(인덱스 이동 문제로 인해)
+            mission.MissionEvent();
+            timelimit = 5f;
+            if (time > mission.timeSnapshot + timelimit) { if (flags[3]) { TimeOut(); flags[3] = false; } }
+        }
+        else
+        {
+            if (flags[0]) { mission = new StartMission(); flags[0] = false; }
+            
+            mission.MissionEvent();
+            timelimit = 5f;
+            if(time > mission.timeSnapshot + timelimit) { if (flags[1]) { TimeOut(); flags[1] = false; } }
+
         }
 
-        
+        Debug.Log("타임스냅샷:" + mission.timeSnapshot);
     }
 
-    void TimeOut()
-    {
+
+    void TimeOut() //한번만 실행되어야함
+    {   
+        
         Debug.Log("타임아웃");
         mission.dialog.text = mission.missionDialog[1];
         mission.dialogPanel.SetActive(true);
@@ -118,33 +96,7 @@ public class GameManager : MonoBehaviour
         Mission.isMissionOn = false;
     }
 
-    bool[] flags = new bool[10]; // RunOnlyOneTime 메소드를 위한 일회용 플래그들
 
-
-    //메소드를 enable 처럼 끄고 켜주는 스위치
-    void RunOnlyOneTime(NoFactorDel del, ref bool flag)
-    {
-        if (flag) { del();}
-        flag = false;
-        
-    }
-
-    void RunOnlyOneTime(MissionDel del, Mission mission, ref bool flag)
-    {
-        if (flag) { del(mission); }
-        flag = false;
-
-    }
-
-    //이벤트로 구현해보기..
-    void MissionControl()
-    {
-
-        
-
-
-        
-    }
-
+   
 
 }
