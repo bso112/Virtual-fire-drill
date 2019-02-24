@@ -7,6 +7,7 @@ public class Item : MonoBehaviour
 {
     public Sprite defaultImg;
     public Type itemType;
+    public Usage state;
     
     public enum Type
     {
@@ -15,16 +16,14 @@ public class Item : MonoBehaviour
         Misc//기타 사용할 수 없고 장착할 수 없는 아이템(정보만 볼 수 있음)
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    public enum Usage
     {
-        
+        IDEL,
+        USING,
+        USED,
+       
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
 }

@@ -4,28 +4,45 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-
 public abstract class Mission
 
 {
     protected GameManager gm = GameManager.GetInstance();
     protected InGameUIControl uiControl = InGameUIControl.GetInstance();
-    protected GameObject dialogPanel = InGameUIControl.GetInstance().dialogPanel;
-    protected Text dialog = InGameUIControl.GetInstance().dialog;
-    protected Text scoreText = InGameUIControl.GetInstance().scoreText;
+    public GameObject dialogPanel = InGameUIControl.GetInstance().dialogPanel;
+    public Text dialog = InGameUIControl.GetInstance().dialog;
+    protected Text scoreText = GameManager.GetInstance().score;
+    protected GameObject hp = GameManager.GetInstance().hp;
     public int score;
     protected string missionName;
-    protected List<string> missionDialog = new List<string>();
+    public List<string> missionDialog = new List<string>();
 
-    [HideInInspector] public bool isMissionOn, isMissonSucced = false;
+    [HideInInspector] public static bool isMissionOn, isMissonSucced = false;
 
-    public abstract void MissionEvent(float time); //인자로 미션의 제한시간을 받는다.
+    float timeSnapshot;
+
+    public Mission()
+    {
+
+        timeSnapshot = gm.min * 60 + gm.second;
+    }
+
+
+  
+
+    public abstract void MissionEvent();
 
     public abstract IEnumerator MissionRoutine(float time);
 
-    //인게임유아이컨트롤에서 체크하면 업데이트에서 체크하거나 전역불리언값을 하나더 만들어야하거나 미션객체가 싱글톤이어야하거나 하는 문제발생. 걍 여기서 체크한다.
+
+    public static bool GetIsMissionOn()
+    {
+        return isMissionOn;
+    }
+    //성공로직 마지막에 실행되어야한다.
     public void ScoreCheack()
     {
+        Debug.Log("스코어체크");
         if (isMissonSucced) { Debug.Log("점수" + score); score += int.Parse(scoreText.text); scoreText.text = score.ToString(); }
     }
 }
@@ -34,98 +51,107 @@ public class StartMission : Mission
 {
 
     public Shooter shooter;
-    int ran = Random.Range(0, 2);
-    GameObject gasValve, multiTap, oilStove, fire;
+    static int ran = Random.Range(0, 3);
+    private GameObject gasValve, multiTap, oilStove;
+    public static GameObject fire;
     GameObject[] startItems;
+    static bool isDialogActivated;
 
 
 
     public StartMission()
     {
         missionName = "스타트미션";
-        score = 200;
+        score = 50;
         missionDialog.Add("성공이에요!");
         missionDialog.Add("실패에요!");
         missionDialog.Add("어디선가 불이 났습니다! 화재원을 찾아보세요!");
-        dialog.text = missionDialog[2];
-        dialogPanel.SetActive(true);
+        missionDialog.Add("");
+        if(dialog.text != missionDialog[2]) { dialog.text = missionDialog[2]; dialogPanel.SetActive(true); }
+        isDialogActivated = true;
+
+
         //가스밸브, 멀티탭, 오일스토브 인스턴스를 가져온다.
         gasValve = GameObject.Find(uiControl.gasValve.name);
         multiTap = GameObject.Find(uiControl.multitap.name);
         oilStove = GameObject.Find(uiControl.oliStove.name);
         startItems = new GameObject[] { gasValve, multiTap, oilStove };
-        //랜덤 오브젝트의 자식인 불 오브젝트를 가져와서 활성화시킨다.(처음에 비활성화 상태임)
-        fire = startItems[ran].transform.Find("fire").gameObject;
-        fire.SetActive(true);
+        //랜덤 오브젝트의 자식인 불 오브젝트가 있으면
+        if (startItems[ran].transform.Find("fire"))
+        {
+            fire = startItems[ran].transform.Find("fire").gameObject;
+            fire.SetActive(true);
+        }
 
-        
 
 
-    }    
 
-    public override void MissionEvent(float time)
+    }
+
+
+    //미션이 언제 실행되는지 업데이트에서 조건을 확인하지 않고, 조건을 하드코딩하거나 버튼 클릭등의 이벤트로 구체적으로 제공한다.
+    public override void MissionEvent()
     {
-        throw new System.NotImplementedException();
+        //매 클릭마다 실행
+        if (!Input.GetMouseButtonDown(0)) { return; }
+        //isMissionOn이 true면
+        if (isMissionOn)
+        {
+            //슈터가 없고 클릭아이템이 있으면
+            if (!shooter && uiControl.clickedItem)
+            {
+                //슈터를 할당
+                this.shooter = GameObject.Find(uiControl.clickedItem.name).GetComponent<Shooter>();
+            }
+            if (!shooter) { return; }
+
+
+            //세가지 오브젝트에 랜덤으로 붙은 불을 클릭하면(불을 끄는 시점과 불을 클릭하는 시점이 달라 문제가 생겼었다.)
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit) && hit.collider.gameObject == fire)
+            {
+                Debug.Log("레이캐스트된 객체:" + hit.collider.name);
+                Debug.Log("불이꺼짐");
+
+                //가스밸브는 불을 끈다음 밸브를 잠궈야(밸브-사용하기버튼 눌러야) 성공이다.
+                if (startItems[ran] == gasValve)
+                {
+                    if (missionDialog[3] != "잘했어요!이제 가스밸브를 잠가주세요")
+                        missionDialog[3] = "잘했어요! 이제 가스밸브를 잠가주세요"; dialog.text = missionDialog[3]; dialogPanel.SetActive(true);
+                    //밸브를 돌리면 성공(동기화 문제 때문에 InGameUiControl의 useitem에 구현함)
+
+                }
+                else if (startItems[ran] == multiTap && shooter.effect.name == "waterEffect")
+                {
+                    if (missionDialog[3] != "불은 껐지만 감전되어 체력이 감소했다!")
+                        missionDialog[3] = "불은 껐지만 감전되어 체력이 감소했다!"; dialog.text = missionDialog[3]; dialogPanel.SetActive(true);
+                    hp.GetComponent<Slider>().value -= 0.1f;
+                    isMissonSucced = true; isMissionOn = false;
+                    ScoreCheack();
+                }
+                else if (startItems[ran] == oilStove && shooter.effect.name == "waterEffect")
+                {
+                    if (missionDialog[3] != "물을 사용하면 불이 더 커집니다!")
+                        missionDialog[3] = "물을 사용하면 불이 더 커집니다!"; dialog.text = missionDialog[3]; dialogPanel.SetActive(true);
+                    //불이 커진다.
+                    ParticleSystem ps = fire.GetComponent<ParticleSystem>();
+                    var main = ps.main;
+                    main.startSize = 2.5f;
+                }
+                else if (fire == null)
+                {
+                    dialog.text = missionDialog[0];
+                    dialogPanel.SetActive(true);
+                    ScoreCheack();
+                    isMissonSucced = true; isMissionOn = false;
+                }
+            }
+
+        }
     }
 
     public override IEnumerator MissionRoutine(float time)
     {
-
-        float timeSnapshot;
-        timeSnapshot = gm.time;
-
-        while (isMissionOn)
-        {
-
-            Debug.Log("미션시작");
-            Debug.Log("미션이 활성화 됬나?" + isMissionOn);
-
-            if (gm.time > timeSnapshot + time)
-            {
-
-                Debug.Log("타임아웃");
-                dialog.text = missionDialog[1];
-                dialogPanel.SetActive(true);
-                isMissonSucced = false;
-                isMissionOn = false;
-            }
-
-            yield return null;
-
-            if (!this.shooter)
-            {   
-                //클릭된 아이템이 슈터를 가지고 있을 경우
-                if (uiControl.clickedItem.GetComponent<Shooter>())
-                {   
-                    //슈터의 레퍼런스를 저장한다.
-                    this.shooter = GameObject.Find(uiControl.clickedItem.name).GetComponent<Shooter>();
-                }
-
-                //만약 슈터가 붙은 게임오브젝트가 ~~면 식으로 상황을 전개해나간다.
-            }
-
-            //랜덤오브젝트에 따라, 또 사용하는 소화오브젝트에 따라 상황이 달라진다. 정리를 더 해보자.
-
-            //랜덤 오브젝트가 가스 밸브이고 불이 꺼지면
-            if (startItems[ran] == gasValve && fire.GetComponent<Fire>().isExtinguished)
-            {
-                missionDialog.Add("잘했어요! 이제 가스밸브를 잠가주세요"); dialog.text = missionDialog[3]; dialogPanel.SetActive(true);
-                //가스밸브가 잠기면 성공
-
-            }
-            //랜덤 오브젝트가 멀티탭이고 불이 꺼지면
-            else if (startItems[ran] == multiTap && fire.GetComponent<Fire>().isExtinguished)
-            {
-                missionDialog.Add("물을 사용하면 감전됩니다!"); dialog.text = missionDialog[3]; dialogPanel.SetActive(true);
-            }
-            //랜덤 오브젝트가 오일스토브고 물을 사용하면
-            else if (startItems[ran] == oilStove && this.shooter.state == Shooter.Usage.USING)
-            {
-                missionDialog.Add("물을 사용하면 불이 더 커집니다!"); dialog.text = missionDialog[3]; dialogPanel.SetActive(true);
-            }
-
-            //성공 실패 로직(점수획득, ismissionOn을 false로 만들기)
-        }
+        throw new System.NotImplementedException();
     }
 }
 
@@ -155,8 +181,71 @@ public class ExtinguisherMission : Mission
     }
 
     bool isDialogActivated = false; // 다이어로그 패널 active를 한번만 실행하기 위해 
-    public override void MissionEvent(float time)
+
+
+
+
+    public override void MissionEvent()
     {
+
+        float timeSnapshot;
+        timeSnapshot = gm.second;
+        while (isMissionOn)
+        {
+
+            Debug.Log("미션시작");
+            Debug.Log("미션이 활성화 됬나?" + isMissionOn);
+
+            //사용자가 소화아이템을 사용하는지 프레임마다 체크
+
+            if (uiControl.clickedItem && !shooter)
+            {
+
+                //클릭된 아이템이 슈터를 가지고 있을 경우
+                if (uiControl.clickedItem.GetComponent<Shooter>())
+                {
+                    //슈터의 레퍼런스를 저장한다.
+                    this.shooter = GameObject.Find(uiControl.clickedItem.name).GetComponent<Shooter>();
+                }
+
+            }
+
+            // 슈터를 사용해서 미션을 진행한다.
+
+            Debug.Log("끈 불의 수:" + shooter.extinguishedCount);
+
+            //setActive 다이어로그가 한번만 실행되게 함.
+            if (shooter.extinguishedCount != 5 || shooter.extinguishedCount != 10)
+            {
+                isDialogActivated = false;
+            }
+
+            if (shooter.extinguishedCount == 5)
+            {
+                if (!isDialogActivated)
+                {
+                    Debug.Log("다섯개의 불을 끔");
+                    dialog.text = missionDialog[3];
+                    dialogPanel.SetActive(true);
+                    isDialogActivated = true;
+                }
+            }
+            if (shooter.extinguishedCount == 10)
+            {
+                if (!isDialogActivated)
+                {
+                    Debug.Log("열개의 불을 끔");
+                    dialog.text = missionDialog[0];
+                    dialogPanel.SetActive(true);
+                    isMissonSucced = true;
+                    isMissionOn = false;
+                    isDialogActivated = true;
+                    ScoreCheack();
+
+                }
+            }
+
+        }
     }
 
 
@@ -168,14 +257,14 @@ public class ExtinguisherMission : Mission
     {
 
         float timeSnapshot;
-        timeSnapshot = gm.time;
+        timeSnapshot = gm.second;
         while (isMissionOn)
         {
 
             Debug.Log("미션시작");
             Debug.Log("미션이 활성화 됬나?" + isMissionOn);
 
-            if (gm.time > timeSnapshot + time)
+            if (gm.second > timeSnapshot + time)
             {
 
                 Debug.Log("타임아웃");
@@ -187,9 +276,9 @@ public class ExtinguisherMission : Mission
             //사용자가 소화아이템을 사용하는지 프레임마다 체크
             yield return null;
 
-            if (!this.shooter)
+            if (uiControl.clickedItem && !shooter)
             {
-               
+
                 //클릭된 아이템이 슈터를 가지고 있을 경우
                 if (uiControl.clickedItem.GetComponent<Shooter>())
                 {
@@ -240,4 +329,7 @@ public class ExtinguisherMission : Mission
 
 
 }
+
+
+
 

@@ -13,14 +13,11 @@ public class InGameUIControl : MonoBehaviour
 
     private InGameUIControl(){}
     private static InGameUIControl instance;
-
-    private MissionHandler missionHandler;
-
-    public GameObject selectionPanel, itemSelectionPanel, dialogPanel, infoPanel, MissonPanel, slot1, slot2,
+    public GameObject selectionPanel, itemSelectionPanel, dialogPanel, infoPanel, SimpleMassagePanel,MissonPanel, slot1, slot2,
         extinguisher, sand, alarm, multitap, gasValve, towel, oliStove, waterBucketFull, WaterBucket,
         extinguisherMisson;
-   
-    public Text dialog, consol, info, scoreText;
+
+    public Text dialog, consol, info, simpleMassage;
    
 
     [HideInInspector] public GameObject clickedItem; //아이템일 수도, 슬롯일 수도 있다.
@@ -49,11 +46,7 @@ public class InGameUIControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        missionHandler = GameObject.Find("GameRoot").GetComponent<MissionHandler>();
-        //게임이 시작되면
-        //missionHandler.StartMissionRoutine(new StartMission(), 360f);
-        dialog.text = "어디선가 불이 났습니다! 원인을 찾아보세요.";
-        dialogPanel.SetActive(true);
+   
         //인벤토리 초기화
         slots = new List<Slot>();
         slots.Add(this.slot1.GetComponent<Slot>());
@@ -190,28 +183,6 @@ public class InGameUIControl : MonoBehaviour
         
     }
 
-    public void MissonStart()
-    {
-        dialogPanel.SetActive(true);
-
-        if (clickedItem.name == extinguisherMisson.name)
-        {
-            missionHandler.StartMissionRoutine(new ExtinguisherMission(), 10f);
-            
-        }
-
-       
-        
-    }
-
-    
-
-    public void MissionEx(Mission mission)
-    {
-        mission.isMissionOn = true;
-        mission.MissionEvent(10);  //시간 설정하는 세터메소드 만들기
-    }
-    
 
     public void Pick()
     {
@@ -260,8 +231,8 @@ public class InGameUIControl : MonoBehaviour
     {
         //아이템 타입이 Misc이면 
         Debug.Log("사용하는 아이템:" + clickedItem.name);
-        if (clickedItem.GetComponent<Item>() != null && clickedItem.GetComponent<Item>().itemType == Item.Type.Misc) { dialog.text = "사용할 수 없는 아이템입니다"; dialogPanel.SetActive(true); return; } 
-        
+        if (clickedItem.GetComponent<Item>() != null && clickedItem.GetComponent<Item>().itemType == Item.Type.Misc) { dialog.text = "사용할 수 없는 아이템입니다"; dialogPanel.SetActive(true); return; }
+        clickedItem.GetComponent<Item>().state = Item.Usage.USING;
         //아이템을 습득하지 않고 바로 사용할 경우
         if (clickedItem != null)
         {
@@ -289,6 +260,51 @@ public class InGameUIControl : MonoBehaviour
                 Debug.Log("타올을 사용합니다.");
                 Debug.Log("아직 구현이 안되었습니다.");
             }
+            if(clickedItem.name == waterBucketFull.name)
+            {
+                GameObject waterBucketFull = GameObject.Find(this.waterBucketFull.name);
+                waterBucketFull.GetComponent<Shooter>().ActivateShooter();
+         
+            }
+            if(clickedItem.name == gasValve.name)
+            {
+                Debug.Log("가스밸브를 사용합니다");
+               
+
+                IEnumerator SmoothRotation(GameObject obj, Quaternion target, float speed)
+                {
+                    float time = 0;
+                    time += Time.deltaTime;
+                    //2초간
+                    while (time<2)
+                    {
+                        obj.transform.rotation = Quaternion.Slerp(obj.transform.rotation, target, speed);
+                        yield return null;
+                    }
+                    
+                }
+                StartCoroutine(SmoothRotation(clickedItem.transform.Find("handle").gameObject, Quaternion.Euler(0,0,40), 0.5f));
+                clickedItem.GetComponent<Item>().state = Item.Usage.USED;
+
+
+                Mission mission = GameManager.GetInstance().mission;
+                //스타트미션에서 랜덤으로 붙은 불이 꺼졌을때
+                if (StartMission.fire == null)
+                {
+                    dialog.text = mission.missionDialog[0];
+                    dialogPanel.SetActive(true);
+                    mission.ScoreCheack();
+                    Mission.isMissonSucced = true; Mission.isMissionOn = false;
+                }
+                else //미션이 진행 중이 아닌데 가스밸브를 잠갔을 경우
+                {
+                    dialog.text = "잘했어요! 가스밸브는 까먹지 말고 잠가야해요!";
+                    dialogPanel.SetActive(true);
+                    GameManager.GetInstance().score.text = (int.Parse(GameManager.GetInstance().score.text) + 20).ToString();
+
+                }
+            }
+       
             
         }
         //아이템을 습득하고나서 사용할 경우

@@ -2334,6 +2334,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: fire
       objectReference: {fileID: 0}
+    - target: {fileID: 2916923158611279923, guid: ba8119c6d83b1be40b6a343f34b110de,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 543884067442321999, guid: ba8119c6d83b1be40b6a343f34b110de,
         type: 3}
       propertyPath: m_LocalRotation.y
