@@ -126,7 +126,7 @@ public class StartMission : Mission
                 {
                     if (missionDialog[3] != "불은 껐지만 감전되어 체력이 감소했다!")
                         missionDialog[3] = "불은 껐지만 감전되어 체력이 감소했다!"; dialog.text = missionDialog[3]; dialogPanel.SetActive(true);
-                    hp.GetComponent<Slider>().value -= 0.1f;
+                    hp.GetComponent<Slider>().value -= 10f;
                     isMissonSucced = true; isMissionOn = false;
                     ScoreCheack();
                 }
