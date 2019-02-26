@@ -17,12 +17,12 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float second;
     [HideInInspector] public float time;
 
-    public Text score;
+    public Text score, missionTimeLimit;
     public GameObject hp;
     public Mission mission;
     private bool[] flags = new bool[10]; // 같은 조건(Mission.isMissionOn = true)에서 각 미션을 한번만 실행하기 위한 일회용 플래그
 
-
+    public GameObject MissionTimePanel;
 
     public static GameManager GetInstance()
     {
@@ -39,8 +39,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //게임 시작과 동시에 첫 미션 스타트
-        Mission.isMissionOn = true;    
         for (int i = 0; i < flags.Length; i++)
         {
             flags[i] = true;
@@ -51,9 +49,9 @@ public class GameManager : MonoBehaviour
 
 
     float timelimit = 0;
+    float missionTime = 0;
     private void Update()
     {
-        Debug.Log("게임매니저의 update 실행");
         
 
         second += Time.deltaTime;
@@ -64,36 +62,53 @@ public class GameManager : MonoBehaviour
             min += 1;
             second = 0;
         }
-        
-        if (time > 6f)
+
+        //타임오버도 미션에서 할수는 없나?
+
+        if (time > 18f)
         {
-            if (flags[2]) { mission = new TestMission(); flags[2] = false; } //한번만 실행 if (flags[i]) { [실행할 내용] flags[i] = false; } 이걸 메소드롤 만들어보려다가 실패. 왜냐면 그 메소드 또한 한번만 실행되어야하기 때문임.(인덱스 이동 문제로 인해)
-            mission.MissionEvent();
-            timelimit = 5f;
-            if (time > mission.timeSnapshot + timelimit) { if (flags[3]) { TimeOut(); flags[3] = false; } }
+            if (flags[4]) { this.mission = new ExtinguisherMission(); timelimit = 10f; missionTime = timelimit; MissionTimePanel.SetActive(true); flags[4] = false; }  //한번만 실행
+            MissionStart(mission, 5);
         }
-        else
+        else if (time > 11f) // 10보다 작고 6보다 클때
         {
-            if (flags[0]) { mission = new StartMission(); flags[0] = false; }
-            
-            mission.MissionEvent();
-            timelimit = 5f;
-            if(time > mission.timeSnapshot + timelimit) { if (flags[1]) { TimeOut(); flags[1] = false; } }
+
+            if (flags[2]) { this.mission = new TestMission(); timelimit = 5f; missionTime = timelimit; MissionTimePanel.SetActive(true); flags[2] = false; }
+            MissionStart(mission, 3);
+        }
+        else //6보다 작을때
+        {
+
+            if (flags[0]) { this.mission = new StartMission(); timelimit = 5f; missionTime = timelimit; MissionTimePanel.SetActive(true); flags[0] = false; } 
+            MissionStart(mission, 1);
 
         }
 
-        Debug.Log("타임스냅샷:" + mission.timeSnapshot);
+       
+
+    }
+
+    public void MissionStart(Mission mission, int flagIndex)
+    {
+        mission.MissionEvent(); //클릭마다 실행
+        missionTime -= Time.deltaTime; //매프레임마다 실행
+        if (missionTime < 0) missionTime = 0;
+        missionTimeLimit.text = missionTime.ToString();  //매프레임마다 실행
+        if (time > mission.timeSnapshot + timelimit) { if (flags[flagIndex]) { TimeOut(); MissionTimePanel.SetActive(false); flags[flagIndex] = false; } } // 한번만 실행
+        if (!Mission.isMissionOn) MissionTimePanel.SetActive(false);
     }
 
 
     void TimeOut() //한번만 실행되어야함
-    {   
-        
-        Debug.Log("타임아웃");
-        mission.dialog.text = mission.missionDialog[1];
-        mission.dialogPanel.SetActive(true);
-        Mission.isMissonSucced = false;
-        Mission.isMissionOn = false;
+    {
+        if (Mission.isMissionOn)
+        {
+            Debug.Log("타임아웃");
+            mission.dialog.text = mission.missionDialog[1];
+            mission.dialogPanel.SetActive(true);
+            Mission.isMissonSucced = false;
+            Mission.isMissionOn = false;
+        }
     }
 
 

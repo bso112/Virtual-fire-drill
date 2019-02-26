@@ -13,11 +13,13 @@ public class InGameUIControl : MonoBehaviour
 
     private InGameUIControl() { }
     private static InGameUIControl instance;
-    public GameObject selectionPanel, itemSelectionPanel, dialogPanel, infoPanel, SimpleMassagePanel, MissonPanel, VideoWindow, slot1, slot2,
+    public GameObject selectionPanel, itemSelectionPanel, dialogPanel, infoPanel, SimpleMassagePanel, MissonPanel, elevatorPanel, VideoWindow, slot1, slot2,
         extinguisher, sand, alarm, multitap, gasValve, towel, oliStove, waterBucketFull, WaterBucket, elevator,
         extinguisherMisson;
 
     public Text dialog, consol, info, simpleMassage;
+
+    
 
 
     [HideInInspector] public GameObject clickedItem; //아이템일 수도, 슬롯일 수도 있다.
@@ -84,7 +86,8 @@ public class InGameUIControl : MonoBehaviour
 
             //아이템을 클릭했을 때
             if (hit.collider.tag == "item")
-            {
+            {   
+                
                 Debug.Log("ActivateSelectionPanel");
                 selectionPanel.SetActive(true);
                 clickedItem = hit.collider.gameObject; //클릭된 아이템을 전역변수에 넣어준다.
@@ -118,6 +121,11 @@ public class InGameUIControl : MonoBehaviour
                 else if (clickedItem.name == towel.name)
                 {
                     info.text = "수건이다.";
+                }
+                else if (clickedItem.name == elevator.name)
+                {
+                    info.text = "엘리베이터다.";
+
                 }
 
             }
@@ -225,6 +233,23 @@ public class InGameUIControl : MonoBehaviour
         }
     }
 
+    //엘리베이터 사용. 엘리베이터선택패널의 예 버튼에 연결
+    public void UseElevator()
+    {
+        elevator.GetComponent<UnityEngine.Video.VideoPlayer>().Play();
+        VideoWindow.SetActive(true);
+        elevator.GetComponent<UnityEngine.Video.VideoPlayer>().loopPointReached += VideoOver;
+    }
+
+    public void VideoOver(UnityEngine.Video.VideoPlayer vp)
+    {
+        elevator.GetComponent<UnityEngine.Video.VideoPlayer>().Stop();
+        VideoWindow.SetActive(false);
+        GameManager.GetInstance().hp.GetComponent<Slider>().value -= 10f;
+        dialog.text = "화재시 엘리베이터를 사용하면 위험합니다!";
+        dialogPanel.SetActive(true);
+        
+    }
 
     //아이템 사용버튼을 누르면 실행
     public void UseItem()
@@ -306,18 +331,10 @@ public class InGameUIControl : MonoBehaviour
             }
             if (clickedItem.name == elevator.name)
             {
+                elevatorPanel.SetActive(true);
+
                 
-                elevator.GetComponent<UnityEngine.Video.VideoPlayer>().Play();
-                VideoWindow.SetActive(true);
-                elevator.GetComponent<UnityEngine.Video.VideoPlayer>().loopPointReached += VideoOver;
-          
-                void VideoOver(UnityEngine.Video.VideoPlayer vp)
-                {
-                    GameManager.GetInstance().hp.GetComponent<Slider>().value -= 10f;
-                    dialog.text = "화재시 엘리베이터를 사용하면 위험합니다!";
-                    dialogPanel.SetActive(true);
-                    VideoWindow.SetActive(false);
-                }
+                
 
 
             }

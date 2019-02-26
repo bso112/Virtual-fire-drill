@@ -17,7 +17,7 @@ public abstract class Mission
     protected string missionName;
     public List<string> missionDialog = new List<string>();
 
-    [HideInInspector] public static bool isMissionOn, isMissonSucced = false;
+    [HideInInspector] public static bool isMissionOn, isMissonSucced = false; // 미션이 끝났다,성공했다 / 미션이 끝났다,실패했다/ 를 구분하기 위함
 
     public float timeSnapshot;
 
@@ -42,6 +42,9 @@ public class TestMission : Mission
     {
         missionDialog.Add("(테스트)성공입니당~");
         missionDialog.Add("(테스트)실패입니당~");
+        dialog.text = "테스트미션";
+        dialogPanel.SetActive(true);
+        isMissionOn = true;
     }
     public override void MissionEvent()
     {
@@ -57,7 +60,7 @@ public class StartMission : Mission
     private GameObject gasValve, multiTap, oilStove;
     public static GameObject fire;
     GameObject[] startItems;
-    static bool isDialogActivated;
+    
 
 
 
@@ -70,7 +73,7 @@ public class StartMission : Mission
         missionDialog.Add("어디선가 불이 났습니다! 화재원을 찾아보세요!");
         missionDialog.Add("");
         if(dialog.text != missionDialog[2]) { dialog.text = missionDialog[2]; dialogPanel.SetActive(true); }
-        isDialogActivated = true;
+        isMissionOn = true;
 
 
         //가스밸브, 멀티탭, 오일스토브 인스턴스를 가져온다.
@@ -107,8 +110,9 @@ public class StartMission : Mission
             }
             if (!shooter) { return; }
 
+           
 
-            //세가지 오브젝트에 랜덤으로 붙은 불을 클릭하면(불을 끄는 시점과 불을 클릭하는 시점이 달라 문제가 생겼었다.)
+            //세가지 오브젝트에 랜덤으로 붙은 불을 클릭하면(불을 끄는 시점과 불을 클릭하는 시점이 달라 문제가 생겼었다. 따라서 불을 클릭한다 = 불이 꺼진다 = 성공이다. 불을 클릭한 시점에서 성공으로 전제를 깜.)
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit) && hit.collider.gameObject == fire)
             {
                 Debug.Log("레이캐스트된 객체:" + hit.collider.name);
@@ -129,6 +133,9 @@ public class StartMission : Mission
                     hp.GetComponent<Slider>().value -= 10f;
                     isMissonSucced = true; isMissionOn = false;
                     ScoreCheack();
+                    dialog.text = missionDialog[0];
+                    dialogPanel.SetActive(true);
+
                 }
                 else if (startItems[ran] == oilStove && shooter.effect.name == "waterEffect")
                 {
@@ -139,13 +146,17 @@ public class StartMission : Mission
                     var main = ps.main;
                     main.startSize = 2.5f;
                 }
-                else if (fire == null)
+                else
                 {
+                    Debug.Log("게임끝");
+                    isMissonSucced = true; isMissionOn = false;
+                    ScoreCheack();
                     dialog.text = missionDialog[0];
                     dialogPanel.SetActive(true);
-                    ScoreCheack();
-                    isMissonSucced = true; isMissionOn = false;
                 }
+                
+
+
             }
 
         }
@@ -168,9 +179,11 @@ public class ExtinguisherMission : Mission
         //미션 다이어로그의 0은 성공메세지, 1은 실패메세지다. 본 메세지는 2부터 시작한다.
         missionDialog.Add("성공이에요!");
         missionDialog.Add("실패에요!");
-        missionDialog.Add("불을 끄세요!");
+        missionDialog.Add("불이 거세졌어요! 제한시간 내에 불을 끄세요!");
         missionDialog.Add("잘했어요 조금 더 꺼볼까요?");
         dialog.text = missionDialog[2];
+        dialogPanel.SetActive(true);
+        isMissionOn = true;
 
 
     }
@@ -182,10 +195,11 @@ public class ExtinguisherMission : Mission
 
     public override void MissionEvent()
     {
+        if (!Input.GetMouseButtonDown(0)) { return; }
 
         float timeSnapshot;
         timeSnapshot = gm.second;
-        while (isMissionOn)
+        if (isMissionOn)
         {
 
             Debug.Log("미션시작");
@@ -204,7 +218,7 @@ public class ExtinguisherMission : Mission
                 }
 
             }
-
+            if (!shooter) return;
             // 슈터를 사용해서 미션을 진행한다.
 
             Debug.Log("끈 불의 수:" + shooter.extinguishedCount);

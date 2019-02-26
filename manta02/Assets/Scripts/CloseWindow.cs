@@ -16,6 +16,10 @@ public class CloseWindow : MonoBehaviour
     public void CloseThis()
     {
         gameObject.SetActive(false);
+        if(gameObject.name == "VideoWindow")
+        {
+            InGameUIControl.GetInstance().VideoOver(InGameUIControl.GetInstance().elevator.GetComponent<UnityEngine.Video.VideoPlayer>());
+        }
     }
 
    
