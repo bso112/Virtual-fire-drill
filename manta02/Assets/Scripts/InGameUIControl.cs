@@ -58,7 +58,7 @@ public class InGameUIControl : MonoBehaviour
         m_Raycaster = GetComponent<GraphicRaycaster>();
         //Fetch the Event System from the Scene
         m_EventSystem = GetComponent<EventSystem>();
-
+        
     }
 
     //터치 Touch tempTouches;

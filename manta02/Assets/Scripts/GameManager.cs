@@ -65,23 +65,28 @@ public class GameManager : MonoBehaviour
 
         //타임오버도 미션에서 할수는 없나?
 
-        if (time > 18f)
+        if (time > 30f)
         {
             if (flags[4]) { this.mission = new ExtinguisherMission(); timelimit = 10f; missionTime = timelimit; MissionTimePanel.SetActive(true); flags[4] = false; }  //한번만 실행
             MissionStart(mission, 5);
         }
-        else if (time > 11f) // 10보다 작고 6보다 클때
+        else if (time > 20f) 
         {
 
             if (flags[2]) { this.mission = new TestMission(); timelimit = 5f; missionTime = timelimit; MissionTimePanel.SetActive(true); flags[2] = false; }
             MissionStart(mission, 3);
         }
-        else //6보다 작을때
+        else if(time > 10f)
         {
 
             if (flags[0]) { this.mission = new StartMission(); timelimit = 5f; missionTime = timelimit; MissionTimePanel.SetActive(true); flags[0] = false; } 
             MissionStart(mission, 1);
 
+        }
+        else  
+        {
+            if (flags[6]) { this.mission = new CallMission(); timelimit = 8f; missionTime = timelimit; MissionTimePanel.SetActive(true); flags[6] = false;  }
+            MissionStart(mission, 7);
         }
 
        
@@ -90,7 +95,7 @@ public class GameManager : MonoBehaviour
 
     public void MissionStart(Mission mission, int flagIndex)
     {
-        mission.MissionEvent(); //클릭마다 실행
+        mission.MissionEvent(); 
         missionTime -= Time.deltaTime; //매프레임마다 실행
         if (missionTime < 0) missionTime = 0;
         missionTimeLimit.text = missionTime.ToString();  //매프레임마다 실행
