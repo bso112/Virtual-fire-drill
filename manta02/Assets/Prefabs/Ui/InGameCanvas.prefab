@@ -1861,6 +1861,9 @@ MonoBehaviour:
   alarmImg: {fileID: 0}
   multitapImg: {fileID: 0}
   towelImg: {fileID: 0}
+  timeLable: {fileID: 0}
+  timeCount: 0
+  min: 0
   clickedItem: {fileID: 0}
 --- !u!1 &8853956237948819300
 GameObject:
