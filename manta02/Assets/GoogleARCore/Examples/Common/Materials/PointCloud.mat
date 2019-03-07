@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: PointCloud
   m_Shader: {fileID: 4800000, guid: 9d889a88b50cc4d65b025d5068d78df6, type: 3}
   m_ShaderKeywords: 
@@ -66,6 +67,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _PointSize: 5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -73,5 +75,5 @@ Material:
     - _ZWrite: 1
     - point_size: 5
     m_Colors:
-    - _Color: {r: 0.12156863, g: 0.7372549, b: 0.8235294, a: 1}
+    - _Color: {r: 0.7964525, g: 0.1215686, b: 0.8235294, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
