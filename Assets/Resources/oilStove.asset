@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bd6cf4fbaff574d9fde29eb8fd94f1, type: 3}
+  m_Name: oilStove
+  m_EditorClassIdentifier: 
+  itemInfo: "\uC11D\uC720\uB09C\uB85C\uB2E4.\\n \uBD88\uC774 \uB0AC\uB294\uB370..
+    \uC11D\uC720\uB294 \uC704\uD5D8\uD558\uC9C0 \uC54A\uC744\uAE4C?"

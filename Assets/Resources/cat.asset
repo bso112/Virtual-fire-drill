@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bd6cf4fbaff574d9fde29eb8fd94f1, type: 3}
+  m_Name: cat
+  m_EditorClassIdentifier: 
+  itemInfo: "\uACE0\uC591\uC774\uB2E4.\\n \uC5F4\uAE30\uC640 \uAC00\uC2A4 \uB54C\uBB38\uC5D0
+    \uAD34\uB85C\uC6CC\uD558\uACE0 \uC788\uB2E4. \uAD6C\uD574\uC8FC\uC790."

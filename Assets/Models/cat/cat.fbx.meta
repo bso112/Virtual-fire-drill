@@ -1,0 +1,246 @@
+fileFormatVersion: 2
+guid: f344940c91bf75e448ddedc035b928d9
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: j_body
+    100004: j_camera
+    100006: j_chest
+    100008: j_head
+    100010: j_hips
+    100012: j_jaw
+    100014: j_l_ankle
+    100016: j_l_ball
+    100018: j_l_ear
+    100020: j_l_elbow
+    100022: j_l_eye
+    100024: j_l_femur
+    100026: j_l_finger
+    100028: j_l_forearm
+    100030: j_l_humerous
+    100032: j_l_inner_eyebrow
+    100034: j_l_knee
+    100036: j_l_lower_eyelid
+    100038: j_l_mid_eyebrow
+    100040: j_l_outer_eyebrow
+    100042: j_l_palm
+    100044: j_l_scap
+    100046: j_l_toe
+    100048: j_l_upper_eyelid
+    100050: j_l_wrist
+    100052: j_mid_eyebrow
+    100054: j_neck_1
+    100056: j_neck_base
+    100058: j_r_ankle
+    100060: j_r_ball
+    100062: j_r_ear
+    100064: j_r_elbow
+    100066: j_r_eye
+    100068: j_r_femur
+    100070: j_r_finger
+    100072: j_r_forearm
+    100074: j_r_humerous
+    100076: j_r_inner_eyebrow
+    100078: j_r_knee
+    100080: j_r_lower_eyelid
+    100082: j_r_mid_eyebrow
+    100084: j_r_outer_eyebrow
+    100086: j_r_palm
+    100088: j_r_scap
+    100090: j_r_toe
+    100092: j_r_upper_eyelid
+    100094: j_r_wrist
+    100096: j_root
+    100098: j_spine_1
+    100100: j_spine_2
+    100102: j_spine_3
+    100104: j_spine_4
+    100106: j_tail_1
+    100108: j_tail_2
+    100110: j_tail_3
+    100112: j_tail_4
+    100114: j_tail_5
+    100116: j_tail_6
+    100118: j_tongue_back
+    100120: j_tongue_mid
+    100122: j_tongue_tip
+    100124: sk_player_cat_lod0
+    400000: //RootNode
+    400002: j_body
+    400004: j_camera
+    400006: j_chest
+    400008: j_head
+    400010: j_hips
+    400012: j_jaw
+    400014: j_l_ankle
+    400016: j_l_ball
+    400018: j_l_ear
+    400020: j_l_elbow
+    400022: j_l_eye
+    400024: j_l_femur
+    400026: j_l_finger
+    400028: j_l_forearm
+    400030: j_l_humerous
+    400032: j_l_inner_eyebrow
+    400034: j_l_knee
+    400036: j_l_lower_eyelid
+    400038: j_l_mid_eyebrow
+    400040: j_l_outer_eyebrow
+    400042: j_l_palm
+    400044: j_l_scap
+    400046: j_l_toe
+    400048: j_l_upper_eyelid
+    400050: j_l_wrist
+    400052: j_mid_eyebrow
+    400054: j_neck_1
+    400056: j_neck_base
+    400058: j_r_ankle
+    400060: j_r_ball
+    400062: j_r_ear
+    400064: j_r_elbow
+    400066: j_r_eye
+    400068: j_r_femur
+    400070: j_r_finger
+    400072: j_r_forearm
+    400074: j_r_humerous
+    400076: j_r_inner_eyebrow
+    400078: j_r_knee
+    400080: j_r_lower_eyelid
+    400082: j_r_mid_eyebrow
+    400084: j_r_outer_eyebrow
+    400086: j_r_palm
+    400088: j_r_scap
+    400090: j_r_toe
+    400092: j_r_upper_eyelid
+    400094: j_r_wrist
+    400096: j_root
+    400098: j_spine_1
+    400100: j_spine_2
+    400102: j_spine_3
+    400104: j_spine_4
+    400106: j_tail_1
+    400108: j_tail_2
+    400110: j_tail_3
+    400112: j_tail_4
+    400114: j_tail_5
+    400116: j_tail_6
+    400118: j_tongue_back
+    400120: j_tongue_mid
+    400122: j_tongue_tip
+    400124: sk_player_cat_lod0
+    2100000: 'Material #81'
+    2100002: 'Material #105'
+    2100004: 'Material #93'
+    4300000: sk_player_cat_lod0
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: sk_player_cat_lod0
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 180
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

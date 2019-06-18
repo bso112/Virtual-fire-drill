@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bd6cf4fbaff574d9fde29eb8fd94f1, type: 3}
+  m_Name: alarm
+  m_EditorClassIdentifier: 
+  itemInfo: "\uC54C\uB78C\uC744 \uC6B8\uB824 \uC0C1\uD669\uC744 \uC804\uD30C\uD558\uC790."

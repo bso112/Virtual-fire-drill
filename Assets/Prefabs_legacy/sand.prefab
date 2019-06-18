@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5580293737043909630
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8265185699558120921, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: m_Name
+      value: sand
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625335974155723112, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625335974155723112, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625335974155723112, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625335974155723112, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.37888443
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625335974155723112, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625335974155723112, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625335974155723112, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.92544395
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625335974155723112, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625335974155723112, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -44.529003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625335974155723112, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625335974155723112, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859469132469021074, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: soundEffects.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859469132469021074, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: soundEffects.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4063614d8ceff1843a5a1347245925bf, type: 3}
+    - target: {fileID: 4859469132469021074, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: soundEffects.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 45a2a12038626d245b08692baad1a38f, type: 3}
+    - target: {fileID: 4859469132469021074, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: soundEffects.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1941694fb79307e43915267f5566c25e, type: 3}
+    - target: {fileID: 4859469132469021074, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: soundEffects.Array.data[7]
+      value: 
+      objectReference: {fileID: 8300000, guid: d26f2985eb74c2a4aadac823b6aacb52, type: 3}
+    - target: {fileID: 4859469132469021074, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: soundEffects.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4063614d8ceff1843a5a1347245925bf, type: 3}
+    - target: {fileID: 4859469132469021074, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: soundEffects.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 45a2a12038626d245b08692baad1a38f, type: 3}
+    - target: {fileID: 4859469132469021074, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: soundEffects.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1941694fb79307e43915267f5566c25e, type: 3}
+    - target: {fileID: 4859469132469021074, guid: 212b7320d550a9d46a5665361a8efddb,
+        type: 3}
+      propertyPath: soundEffects.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: d26f2985eb74c2a4aadac823b6aacb52, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 212b7320d550a9d46a5665361a8efddb, type: 3}
