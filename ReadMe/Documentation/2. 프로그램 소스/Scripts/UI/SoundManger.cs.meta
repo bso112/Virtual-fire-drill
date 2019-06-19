@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 565046a684fff8749b6e4f67f324c78f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - efxSource: {instanceID: 0}
+  - musicSource: {instanceID: 0}
+  - sucSound: {fileID: 8300000, guid: 2717593015ac65a41ae3ebe748d6d153, type: 3}
+  - failSound: {fileID: 8300000, guid: b3545c3a5cd8a9743bb37a49a52c84ef, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
