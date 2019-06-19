@@ -1,1 +1,4 @@
 Library/PlayerDataCache/Android/Data/sharedassets0.assets filter=lfs diff=lfs merge=lfs -text
+Assets/Videos/exthinguisherVideo.avi filter=lfs diff=lfs merge=lfs -text
+Library/PlayerDataCache/Android/Data/sharedassets1.assets filter=lfs diff=lfs merge=lfs -text
+ReadMe/Documentation/전공종합설계_최종보고서_김홍준.hwp filter=lfs diff=lfs merge=lfs -text
