@@ -233,11 +233,13 @@
     <Compile Include="Assets\Scripts\UI\TimerChange.cs" />
     <Compile Include="Assets\Scripts\UI\UISound.cs" />
     <Compile Include="Assets\Scripts_refactored\InfoSetter.cs" />
+    <Compile Include="Assets\Scripts_refactored\Inventroy.cs" />
     <Compile Include="Assets\Scripts_refactored\Item.cs" />
     <Compile Include="Assets\Scripts_refactored\ItemGetter.cs" />
     <Compile Include="Assets\Scripts_refactored\ItemInfo.cs" />
     <Compile Include="Assets\Scripts_refactored\ObjectFactory.cs" />
-    <Compile Include="Assets\Scripts_refactored\SlotController.cs" />
+    <Compile Include="Assets\Scripts_refactored\Slot.cs" />
+    <Compile Include="Assets\Scripts_refactored\VideoController.cs" />
     <Compile Include="Assets\SimpleObjectPool.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

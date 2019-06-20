@@ -5,7 +5,13 @@ using UnityEngine.Events;
 
 public class ItemGetter : MonoBehaviour
 {
-    public static GameObject clickeditem { private set { clickeditem = value; }  get { return clickeditem; } }
+    //클릭아이템이 없으면 빈 게임오브젝트를 반환한다.(클릭아이템기반으로 이벤트를 발생시키는게 과연 좋을까?)
+    private static GameObject clickeditem;
+    public static GameObject Getclickeditem
+    {
+        get { if (clickeditem == null) return new GameObject(); return clickeditem; }
+    }
+
 
     [Header("Here are click events! Drag anything here!")]
     

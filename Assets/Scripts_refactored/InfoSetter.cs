@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class InfoSetter : MonoBehaviour
 {
+
     //OnClickEvents에 연결
 
     /// <summary>
@@ -14,7 +15,7 @@ public class InfoSetter : MonoBehaviour
     {
         
         Text text = gameObject.GetComponent<Text>();
-        text.text = ItemGetter.clickeditem.GetComponent<Item>().itemInfo.itemInfo;
+        text.text = ItemGetter.Getclickeditem.GetComponent<Item>().itemInfo.itemInfo;
         
     }
 

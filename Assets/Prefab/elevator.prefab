@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2781972311475875239}
   - component: {fileID: 8191870244525705942}
   - component: {fileID: 4144988076308047603}
+  - component: {fileID: 1623571267139045580}
   m_Layer: 0
   m_Name: elevator
   m_TagString: item
@@ -99,7 +100,7 @@ MonoBehaviour:
   defaultImg: {fileID: 0}
   itemType: 1
   state: 0
-  itemInfo: {fileID: 11400000, guid: f98ed68a4ea070947b1641ebde4f771c, type: 2}
+  itemInfo: {fileID: 0}
 --- !u!65 &8191870244525705942
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -147,3 +148,15 @@ VideoPlayer:
   m_Looping: 0
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
+--- !u!114 &1623571267139045580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6071807660830222034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a640a24b4a7bc4c8344b316ead7160, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
