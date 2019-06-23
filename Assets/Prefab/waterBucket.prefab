@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2067954410347617083}
   - component: {fileID: 1366191594120073418}
-  - component: {fileID: 4346767432281318465}
   - component: {fileID: 3249210371557762678}
   - component: {fileID: 558648023954400447}
+  - component: {fileID: 6728597877617129337}
   m_Layer: 0
   m_Name: waterBucket
   m_TagString: item
@@ -49,26 +49,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.39, y: 0.48, z: 0.4}
   m_Center: {x: -0.04, y: -0.42, z: -0.06}
---- !u!114 &4346767432281318465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 774083817049632021}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5e7e7749de2c264e8dc0ed7f20a9ad7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effect: {fileID: 9181885362278372452, guid: 4baae4a130ec7eb4fb60ff33da861eb9, type: 3}
-  soundEffects:
-  - {fileID: 8300000, guid: 4063614d8ceff1843a5a1347245925bf, type: 3}
-  - {fileID: 8300000, guid: 45a2a12038626d245b08692baad1a38f, type: 3}
-  - {fileID: 8300000, guid: 1941694fb79307e43915267f5566c25e, type: 3}
-  - {fileID: 8300000, guid: d26f2985eb74c2a4aadac823b6aacb52, type: 3}
-  limitJetCount: 15
-  extinguishedCount: 0
 --- !u!114 &3249210371557762678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +102,26 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6728597877617129337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774083817049632021}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f424b4c7756a5f43bf6808cf3e0c917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: {fileID: 9181885362278372452, guid: 4baae4a130ec7eb4fb60ff33da861eb9, type: 3}
+  soundEffects:
+  - {fileID: 8300000, guid: 4063614d8ceff1843a5a1347245925bf, type: 3}
+  - {fileID: 8300000, guid: 45a2a12038626d245b08692baad1a38f, type: 3}
+  - {fileID: 8300000, guid: 1941694fb79307e43915267f5566c25e, type: 3}
+  - {fileID: 8300000, guid: d26f2985eb74c2a4aadac823b6aacb52, type: 3}
+  limitJetCount: 35
+  extinguishedCount: 0
 --- !u!1 &3628781394433118596
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2152073296574821716}
   - component: {fileID: 4616956585938519656}
   - component: {fileID: 5833276976654070110}
-  - component: {fileID: 4640181785342379421}
+  - component: {fileID: 2484917306055314186}
   m_Layer: 0
   m_Name: extinguisher
   m_TagString: item
@@ -110,19 +110,19 @@ MonoBehaviour:
   itemType: 0
   state: 0
   itemInfo: {fileID: 11400000, guid: c8ea1db317c7eb344b886b43413d0317, type: 2}
---- !u!114 &4640181785342379421
+--- !u!114 &2484917306055314186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9221404418857067460}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5e7e7749de2c264e8dc0ed7f20a9ad7, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f424b4c7756a5f43bf6808cf3e0c917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect: {fileID: 2695892417633192538, guid: 05cc8fce5f9105e49a512fdfe108c5c4, type: 3}
+  effect: {fileID: 2123034535623641942, guid: 76722156220b3cb4fa596fb463913e56, type: 3}
   soundEffects:
   - {fileID: 8300000, guid: 4063614d8ceff1843a5a1347245925bf, type: 3}
   - {fileID: 8300000, guid: 45a2a12038626d245b08692baad1a38f, type: 3}

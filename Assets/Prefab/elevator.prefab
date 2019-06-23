@@ -100,7 +100,7 @@ MonoBehaviour:
   defaultImg: {fileID: 0}
   itemType: 1
   state: 0
-  itemInfo: {fileID: 0}
+  itemInfo: {fileID: 11400000, guid: 578a1297252a2ed4c8b1ef0e4fc37456, type: 2}
 --- !u!65 &8191870244525705942
 BoxCollider:
   m_ObjectHideFlags: 0

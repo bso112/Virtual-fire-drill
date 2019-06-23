@@ -204,42 +204,28 @@
     <Compile Include="Assets\HelloARCore.cs" />
     <Compile Include="Assets\Lowpoly Toon Cat Lite\Demo\Cat_Lite_Demo.cs" />
     <Compile Include="Assets\PositionAnchor.cs" />
-    <Compile Include="Assets\Scripts\Evironment\AugmentedImageExampleController.cs" />
-    <Compile Include="Assets\Scripts\Evironment\AugmentedImageVisualizer.cs" />
-    <Compile Include="Assets\Scripts\Evironment\AugmentedImgTutorial.cs" />
-    <Compile Include="Assets\Scripts\Evironment\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Evironment\Mission.cs" />
-    <Compile Include="Assets\Scripts\Evironment\Shooter.cs" />
-    <Compile Include="Assets\Scripts\Item\Fire.cs" />
-    <Compile Include="Assets\Scripts\Item\FirePropSpawner.cs" />
-    <Compile Include="Assets\Scripts\Item\ItemManager.cs" />
-    <Compile Include="Assets\Scripts\SceneChange.cs" />
-    <Compile Include="Assets\Scripts\Server\client_test.cs" />
-    <Compile Include="Assets\Scripts\Server\DB_data.cs" />
-    <Compile Include="Assets\Scripts\Server\new_test\first_connet.cs" />
-    <Compile Include="Assets\Scripts\Server\Web.cs" />
-    <Compile Include="Assets\Scripts\UI\AnswerScript.cs" />
-    <Compile Include="Assets\Scripts\UI\ButtonControl.cs" />
-    <Compile Include="Assets\Scripts\UI\CloseWindow.cs" />
-    <Compile Include="Assets\Scripts\UI\InGameUIControl.cs" />
-    <Compile Include="Assets\Scripts\UI\LevelLoader.cs" />
-    <Compile Include="Assets\Scripts\UI\QuestionScript.cs" />
-    <Compile Include="Assets\Scripts\UI\Quiz.cs" />
-    <Compile Include="Assets\Scripts\UI\QuizManager.cs" />
-    <Compile Include="Assets\Scripts\UI\Ranking.cs" />
-    <Compile Include="Assets\Scripts\UI\SliderChange.cs" />
-    <Compile Include="Assets\Scripts\UI\Slot.cs" />
-    <Compile Include="Assets\Scripts\UI\SoundManger.cs" />
-    <Compile Include="Assets\Scripts\UI\TimerChange.cs" />
-    <Compile Include="Assets\Scripts\UI\UISound.cs" />
-    <Compile Include="Assets\Scripts_refactored\InfoSetter.cs" />
-    <Compile Include="Assets\Scripts_refactored\Inventroy.cs" />
-    <Compile Include="Assets\Scripts_refactored\Item.cs" />
-    <Compile Include="Assets\Scripts_refactored\ItemGetter.cs" />
-    <Compile Include="Assets\Scripts_refactored\ItemInfo.cs" />
-    <Compile Include="Assets\Scripts_refactored\ObjectFactory.cs" />
-    <Compile Include="Assets\Scripts_refactored\Slot.cs" />
-    <Compile Include="Assets\Scripts_refactored\VideoController.cs" />
+    <Compile Include="Assets\Scripts_refactored\Enviroment\GameManager.cs" />
+    <Compile Include="Assets\Scripts_refactored\Enviroment\ItemInfo.cs" />
+    <Compile Include="Assets\Scripts_refactored\Enviroment\ItemInfoInitializer.cs" />
+    <Compile Include="Assets\Scripts_refactored\Enviroment\Mission.cs" />
+    <Compile Include="Assets\Scripts_refactored\Enviroment\ObjectFactory.cs" />
+    <Compile Include="Assets\Scripts_refactored\Enviroment\ObjectSpwaner.cs" />
+    <Compile Include="Assets\Scripts_refactored\Monobehavior\CanvasRaycaster.cs" />
+    <Compile Include="Assets\Scripts_refactored\Monobehavior\Fire.cs" />
+    <Compile Include="Assets\Scripts_refactored\Monobehavior\InfoSetter.cs" />
+    <Compile Include="Assets\Scripts_refactored\Monobehavior\Inventroy.cs" />
+    <Compile Include="Assets\Scripts_refactored\Monobehavior\Item.cs" />
+    <Compile Include="Assets\Scripts_refactored\Monobehavior\ItemGetter.cs" />
+    <Compile Include="Assets\Scripts_refactored\Monobehavior\ItemUseController.cs" />
+    <Compile Include="Assets\Scripts_refactored\Monobehavior\Ranking.cs" />
+    <Compile Include="Assets\Scripts_refactored\Monobehavior\Shooter.cs" />
+    <Compile Include="Assets\Scripts_refactored\Monobehavior\Slot.cs" />
+    <Compile Include="Assets\Scripts_refactored\Monobehavior\SoundManger.cs" />
+    <Compile Include="Assets\Scripts_refactored\Monobehavior\VideoController.cs" />
+    <Compile Include="Assets\Scripts_refactored\Server\client_test.cs" />
+    <Compile Include="Assets\Scripts_refactored\Server\DB_data.cs" />
+    <Compile Include="Assets\Scripts_refactored\Server\new_test\first_connet.cs" />
+    <Compile Include="Assets\Scripts_refactored\Server\Web.cs" />
     <Compile Include="Assets\SimpleObjectPool.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
@@ -288,7 +274,7 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
-    <None Include="Assets\Scripts\Server\JsonDotNet\link.xml" />
+    <None Include="Assets\Scripts_refactored\Server\JsonDotNet\link.xml" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
@@ -521,7 +507,7 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>C:/Users/bso11/Desktop/workspace/UnityWork/ARCrash_finished/Assets/Scripts/Server/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+      <HintPath>C:/Users/bso11/Desktop/workspace/UnityWork/ARCrash_finished/Assets/Scripts_refactored/Server/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>C:/Users/bso11/Desktop/workspace/UnityWork/ARCrash_finished/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>

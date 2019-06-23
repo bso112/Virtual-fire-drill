@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 1771952859517876114}
   - component: {fileID: 3633942780276798205}
   - component: {fileID: 2964992065340720706}
-  - component: {fileID: 4651952342841521524}
+  - component: {fileID: 7064794907745453262}
   m_Layer: 0
   m_Name: fire
   m_TagString: fire
@@ -5076,7 +5076,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.7, z: 0.6}
   m_Center: {x: 0, y: 0.11, z: -0.02}
---- !u!114 &4651952342841521524
+--- !u!114 &7064794907745453262
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5085,7 +5085,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3006150565772006504}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3597854a54ea184993d214b3aa25f44, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b3b8430fb8822b42b367b0d48dc2b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isExtinguished: 0
